@@ -1,11 +1,13 @@
 import React from 'react'
+import '@/app/globals.css'
 
-function page() {
+
+function TicTacToe() {
   return (
     <div>
-      
+      tictactoe
     </div>
   )
 }
 
-export default page
+export default TicTacToe
