@@ -1,0 +1,38 @@
+#cursor {
+    position: fixed;
+    width: 25px;
+    height: 25px;
+    border-left: 6px solid aqua;
+    border-top: 6px solid aqua;
+    border-radius: 0px 3px 0px 3px;
+    /* animation: blink 1s infinite; */
+    transform-origin: top;
+    transform: translate(-1px,5px) rotate(20deg);
+    pointer-events: none;
+    transition: transform 0.1s;
+    filter: drop-shadow(0px 0px 5px aqua) drop-shadow(0px 0px 15px aqua) drop-shadow(0px 0px 25px aqua);
+  }
+  #cursor::before{
+    content: '';
+    position: absolute;
+    background-color: aqua;
+    width: 5px;
+    height: 30px;
+    top: 1,5px;
+    left:-2px;
+    transform-origin:top;
+    transform: rotate(-50deg);
+  }
+  .btn{
+    border: 2px solid white;
+    color: white;
+    padding: 8px;
+    font-size: 24px;
+    border-radius: 10px;
+    cursor: none;
+    background-color: rgb(49, 49, 49);
+    filter: drop-shadow(0 0 2px white);
+  }
+  .btn:hover{
+    background-color: rgb(79, 79, 79);
+  }
