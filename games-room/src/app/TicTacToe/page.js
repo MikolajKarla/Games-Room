@@ -1,12 +1,17 @@
 import React from 'react'
 import '@/app/globals.css'
+import SocketComp from './SocketComp'
+
 
 
 function TicTacToe() {
+ 
   return (
-    <div>
-      tictactoe
-    </div>
+    <>
+      <body>
+    <SocketComp/>
+    </body>
+    </>
   )
 }
 
