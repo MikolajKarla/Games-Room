@@ -1,24 +1,22 @@
 'use client'
 import Button from '@/components/Button';
+import TTTComponent from '@/components/TTTComponent';
 import React, { useEffect, useState} from 'react';
 import { io } from 'socket.io-client';
 
 function SocketComp() {
     
     const [socket, setSocket] = useState();
-    const [buttonText, setButtonText] = useState('Send Event');
-    const [authorize, setAuthorize] = useState(false);
-
+    let ip = ""
     useEffect(() => {
-        const newSocket = io("http://172.20.10.2:5000")
+        const newSocket = io("http://"+ip+":5000")
     
         newSocket.on('connect', () => {
             setSocket(newSocket);
-            console.log(newSocket, newSocket.id);
         });
     
         newSocket.on('responseevent', (data) => {
-            setButtonText(data);
+            console.log(data);
         });
     
         newSocket.on('connect_error', (error) => {
@@ -34,25 +32,19 @@ function SocketComp() {
             }
         };
     }, []);
+const submit = ()=>{
 
-function submit() {
-    console.log('fromsokcetcomp', authorize);
-    setAuthorize(true);
+    socket.emit('gameConnection',{username:'miko',id:Math.floor(Math.random()*100000),room_id:'1'});
     window.localStorage.setItem('authorize', JSON.stringify(true));
-    console.log('fromsokcetcomp2', authorize);
-}
-const sendEvent = ()=>{
-    socket.emit('gameConnection',('miko',Math.floor(Math.random()*1000),'1'));
+
 }
 
 
     return (
 
         <>
-        {authorize?
-                <div>
-                <button className='text-white border-2 border-white' onClick={sendEvent}>{buttonText}</button>
-            </div>
+        {window.localStorage.getItem('authorize')?
+            <TTTComponent/>
         :
         <main>
         <input  type="text" id="username-field" placeholder="Username"/>

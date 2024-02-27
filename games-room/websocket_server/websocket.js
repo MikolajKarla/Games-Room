@@ -10,19 +10,26 @@ const io = new Server(httpServer,{
     }
 
 });
-
 io.on('connection',async(socket)=>{
     console.log(socket.id+ " connected!")
 
-    socket.on('gameConnection',(username,id,room_id)=>{
-        console.log(username,id,room_id);
-        socket.join(room_id+'room')
-        let clientNumber = io.sockets.adapter.rooms.get(room_id + 'room').size;
+    let username,id,room;
+
+    socket.on('gameConnection',(user)=>{
+        username = user.username
+        id = user.id
+        room = user.room_id
+        console.log(username,id,room);
+        socket.join(room+'room')
+
+        let clientNumber = io.sockets.adapter.rooms.get(room + 'room').size;
+
+        console.log(clientNumber);
         if (clientNumber<2){
         socket.emit('responseevent','U must wait for another player')
         }else{
-        socket.to(room_id+'room').emit('responseevent','start game!')
-
+        socket.to(room+'room').emit('responseevent','start game!')
+        socket.emit('responseevent','start game!')
         }
     })
 

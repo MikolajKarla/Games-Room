@@ -5,12 +5,10 @@ import SocketComp from './SocketComp'
 
 
 function TicTacToe() {
- 
+
   return (
     <>
-      <body>
-    <SocketComp/>
-    </body>
+    <SocketComp />
     </>
   )
 }
