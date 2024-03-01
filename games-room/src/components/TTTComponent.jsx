@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-function TTTComponent() {
-
+function TTTComponent({socket,result}) {
     const appendBoard = () => {
         const buttons = [];
         for (let i = 0; i < 9; i++) {
@@ -10,16 +9,17 @@ function TTTComponent() {
         return buttons;
     }
     const clickedButton = (e)=>{
-        console.log(e.target.id);
+    socket.emit('clickField',e.target.id)
         let btn =  document.getElementById(e.target.id)
-        btn.innerHTML= "X"
+        btn.innerHTML= socket.sign
+        btn.value= socket.sign
+
         btn.disabled = true;
     }
-
   return (
     <body className=' h-screen flex justify-center'>
         <div className="board grid grid-cols-3 place-content-center gap-2">
-        <h3 className='text-center col-span-3 lg:text-3xl md:text-3xl text-3xl'>Wynik:</h3>
+        <h3 className='text-center col-span-3 lg:text-3xl md:text-3xl text-3xl'>Wynik: {result}</h3>
 
         {appendBoard()}
         </div>
