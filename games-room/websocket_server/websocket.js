@@ -10,7 +10,7 @@ const io = new Server(httpServer, {
 });
 
 let username, id, room;
-let sign='X'
+let sign='O'
 let turn =false;
 
 

@@ -34,7 +34,6 @@ let combination = [[0,1,2], [3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4
             console.error("Socket connection timeout.");
         })
         newSocket.on('markField',(field,sign,turn)=>{
-            console.log(field,sign);
             let btn =  document.getElementById(field)
             btn.innerHTML= sign
              btn.disabled = true;
@@ -47,21 +46,18 @@ let combination = [[0,1,2], [3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4
              btns.forEach(e=>{
                 e.disabled=true
              })}
-            console.log(field,sign,btn);
-            // socket.to(data.room).emit('updateBoard', data.board);
 
         })
-
         newSocket.on('CheckWin',(username,sign)=>{
             combination.forEach(arrays => {
                 let winningSet = sign+sign+sign
                 let comb =''
                 arrays.forEach(element => {
-                let btn1 =  document.getElementById(element).innerText
-                comb+=btn1
+                let btn1 =  document.getElementById(element)
+                comb+=btn1.innerText
+
+
             });
-            console.log(comb);
-            console.log(winningSet);
                 if((comb)==winningSet){
                 console.log('Wygrales!! ',username);
                 setResult(username+' wygrał!');
@@ -69,6 +65,15 @@ let combination = [[0,1,2], [3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4
 
 
             });
+            let draw=true
+            for (let i = 0; i < 9; i++) {
+                let btn =  document.getElementById(i).disabled
+                console.log(btn);
+                if(!btn.disabled){
+                    draw=false}
+            }
+            if(draw){setResult('Nie ma zwycięzcy')};
+
         })
 
     
