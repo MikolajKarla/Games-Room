@@ -46,6 +46,19 @@ io.on('connection', async (socket) => {
         socket.emit('CheckWin',socket.username,socket.sign)
 
     });
+
+    socket.on('endGame', (status,winner='') =>{
+        if(status==1){
+            socket.to(socket.room+'room').emit('Result',(winner+' wygrał!!'));
+            socket.emit('Result',(winner+' wygrał!!'));
+
+
+        }else if(status==0){
+            socket.to(socket.room+'room').emit('Result','Remis!!');
+            socket.emit('Result',(winner+' wygrał!!'));
+
+        }
+    })
 });
 
 httpServer.listen(5000, () => {

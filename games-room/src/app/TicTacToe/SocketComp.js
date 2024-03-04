@@ -56,25 +56,32 @@ let combination = [[0,1,2], [3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4
                 let btn1 =  document.getElementById(element)
                 comb+=btn1.innerText
 
-
             });
                 if((comb)==winningSet){
                 console.log('Wygrales!! ',username);
-                setResult(username+' wygrał!');
+                newSocket.emit('endGame',1,(username));
+                let btns=document.querySelectorAll("button");
+                btns.forEach(e=>{
+                    e.disabled=true
+                 })
                 }
 
 
             });
             let draw=true
             for (let i = 0; i < 9; i++) {
-                let btn =  document.getElementById(i).disabled
-                console.log(btn);
-                if(!btn.disabled){
+                let btn =  document.getElementById(i).innerText
+                if(btn=="..."){
                     draw=false}
             }
-            if(draw){setResult('Nie ma zwycięzcy')};
+            if(draw){
+                newSocket.emit('endGame',0,(username));
+        }
+    })
 
-        })
+        newSocket.on('Result',(result) => {
+            setResult(result);
+            })
 
     
         return () => {
