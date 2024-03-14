@@ -20,8 +20,6 @@ io.on('connection', async (socket) => {
     socket.on('gameConnection', (user) => {
         username = user.username;
         id = user.id;
-        room = user.room_id;
-        sign =sign==="X"?'O':"X"
         console.log(username, id, room,sign);
         socket.join(room + 'room');
 

@@ -111,9 +111,8 @@ const submit = ()=>{
         </>
         :<p className='text-white text-4xl'>Czekaj na przeciwnika...</p>)
         :
-        <main>
-        <input  type="text" id="username-field" required placeholder="Username"/>
-        <br/>
+        <main className="flex min-h-screen text-bolder flex-col items-center justify-center text-center p-24">
+        <input  type="text" className='text-black p-2' id="username-field" required placeholder="Username"/>
         {emptyField}<br/>
         <Button text='Submit your name!' func={submit} />
         </main>
