@@ -11,9 +11,6 @@ function TTTComponent({socket,result}) {
     const clickedButton = (e)=>{
     socket.emit('clickField',e.target.id)
         let btn =  document.getElementById(e.target.id)
-        btn.innerHTML= socket.sign
-        btn.value= socket.sign
-
         btn.disabled = true;
     }
   return (

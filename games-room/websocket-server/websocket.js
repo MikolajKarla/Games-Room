@@ -9,27 +9,40 @@ const io = new Server(httpServer, {
     },
 });
 
-let username, id, room;
-let sign='O'
+let username, id,sign
 let turn =false;
-
+let room =0
+let userCount = 0
 
 io.on('connection', async (socket) => {
-    console.log(socket.id + " connected!");
-
+    
     socket.on('gameConnection', (user) => {
+        let clientNumber
+        userCount++
         username = user.username;
         id = user.id;
-        console.log(username, id, room,sign);
-        socket.join(room + 'room');
+        if(userCount%2==0 || userCount==0){
+            socket.join(room + 'room');
+         clientNumber = io.sockets.adapter.rooms.get((room) + 'room').size;
 
-        let clientNumber = io.sockets.adapter.rooms.get(room + 'room').size;
+        }else{
+            room++
+            socket.join(room + 'room');
+         clientNumber = io.sockets.adapter.rooms.get((room) + 'room').size;
         console.log(clientNumber);
+    }
+    console.log(username, id, room,userCount);
+
         if (clientNumber < 2) {
+
             socket.emit('responseevent', false,'U must wait for another player');
-        } else {
+            socket.join(room + 'room');
+            sign = 'X'
+        }else{
             socket.to(room + 'room').emit('responseevent',true, 'start game!');
             socket.emit('responseevent', 'start game!');
+            sign = 'O'
+
         }
         // Set variables in socket instance
         socket.username = username;
@@ -53,7 +66,7 @@ io.on('connection', async (socket) => {
 
         }else if(status==0){
             socket.to(socket.room+'room').emit('Result','Remis!!');
-            socket.emit('Result',(winner+' wygrał!!'));
+            socket.emit('Result','Remis!!');
 
         }
     })

@@ -12,7 +12,7 @@ function SocketComp() {
     const [ready,setReady] = useState(false)
     const[result,setResult] = useState('')
 
-    
+let end=false;
 let combination = [[0,1,2], [3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]] 
     let ip = ""
     useEffect(() => {
@@ -59,6 +59,7 @@ let combination = [[0,1,2], [3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4
             });
                 if((comb)==winningSet){
                 console.log('Wygrales!! ',username);
+                end=true;
                 newSocket.emit('endGame',1,(username));
                 let btns=document.querySelectorAll("button");
                 btns.forEach(e=>{
@@ -74,13 +75,17 @@ let combination = [[0,1,2], [3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4
                 if(btn=="..."){
                     draw=false}
             }
-            if(draw){
+            if(draw && !end){
                 newSocket.emit('endGame',0,(username));
         }
     })
 
         newSocket.on('Result',(result) => {
             setResult(result);
+            let btns=document.querySelectorAll("button");
+            btns.forEach(e=>{
+                e.disabled=true
+             })
             })
 
     

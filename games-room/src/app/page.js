@@ -16,8 +16,8 @@ export default function Home() {
     <Cursor/>
     <main className="flex min-h-screen text-bolder flex-col items-center justify-center text-center p-24">
     <h1 className="text-5xl text-white title m-2  ">Game Saloon</h1>
-    {/* <Button text="Whack a Mole!" targetpage="/whackamole"></Button> */}
-    <Button text="Tic Tac Toe" targetpage="/tictactoe"></Button>
+    <Button text="Whack a Mole!" targetpage="/WhackaMole"></Button>
+    <Button text="Tic Tac Toe" targetpage="/TicTacToe"></Button>
     {/* <Button text="Ships Game" targetpage="/battleships"></Button> */}
 
     </main>
