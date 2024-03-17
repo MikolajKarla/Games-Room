@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  cursor: none;
+  color: white;
+  background-color: black;
+}
+.title{
+  filter: drop-shadow(0 0 5px rgb(0, 119, 255))drop-shadow(0 0 25px rgb(100, 165, 255));
+}
